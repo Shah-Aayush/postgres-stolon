@@ -1,0 +1,12 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  # namespace: stolon-postgres-testing
+  name: stolon
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "services", "endpoints", "persistentvolumeclaims", "configmaps"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets", "deployments"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]
