@@ -226,10 +226,6 @@ oc get services -n <new-namespace>
 By following these steps, you should be able to create, build, and deploy a custom PostgreSQL image with your desired extensions using the Stolon operator.
 
 
-## Update postgres parameters
-
-Here is the documentation on how to update PostgreSQL parameters, including the necessary steps to delete the current running [`stolonctl`] pod, apply the configuration in the [`stolonctl-pod-config.yaml`](command:_github.copilot.openRelativePath?%5B%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2FUsers%2Faayush%2FDevelopment%2Fpostgres-stolon%2Fstolonctl-pod-config.yaml%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22244a82aa-73e9-4def-8cbc-7fbe34e2d830%22%5D "/Users/aayush/Development/postgres-stolon/stolonctl-pod-config.yaml") file, and restart the keeper pod if needed.
-
 ## Updating PostgreSQL Parameters
 
 This guide will walk you through the process of updating PostgreSQL parameters using the Stolon operator. Some parameters, such as `shared_buffers`, require the keeper pod to be restarted to take effect.
