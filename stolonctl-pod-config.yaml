@@ -21,7 +21,7 @@ spec:
       '{
         "pgParameters": {
           "temp_buffers": "2GB",
-          "shared_buffers": "12GB",
+          "shared_buffers": "20GB",
           "wal_buffers": "200000",
           "work_mem": "2GB",
           "max_connections": "300",

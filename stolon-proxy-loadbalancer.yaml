@@ -1,0 +1,13 @@
+# Not implemented in openshift yet
+apiVersion: v1
+kind: Service
+metadata:
+  name: stolon-proxy-loadbalancer
+  namespace: stolon-postgres-testing
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: stolon-proxy

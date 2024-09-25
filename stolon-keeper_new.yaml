@@ -24,6 +24,8 @@ spec:
         - /bin/bash
         - -ec
         - |
+          # update ssl certificate for noobaa
+          update-ca-certificates
           # Generate our keeper uid using the pod index
           IFS='-' read -ra ADDR <<< "$(hostname)"
           export STKEEPER_UID="keeper${ADDR[-1]}"
@@ -55,7 +57,7 @@ spec:
           value: /etc/secrets/stolon/password
         - name: STKEEPER_METRICS_LISTEN_ADDRESS
           value: 0.0.0.0:8080
-        image: aayushtheapple/postgres-updated:stolon-postgres-v1.5
+        image: aayushtheapple/postgres-updated:stolon-postgres-v1.6
         # image: sorintlab/stolon:master-pg15
         imagePullPolicy: Always
         name: stolon-keeper
@@ -63,6 +65,9 @@ spec:
         - containerPort: 5432
         - containerPort: 8080
         volumeMounts:
+        - name: noobaa-ca
+          mountPath: /usr/local/share/ca-certificates/
+          readOnly: true
         - mountPath: /stolon-data
           name: data
         - mountPath: /etc/secrets/stolon
@@ -73,6 +78,9 @@ spec:
       - name: stolon
         secret:
           secretName: stolon
+      - name: noobaa-ca
+        configMap:
+          name: noobaa-ca
   volumeClaimTemplates:
   - metadata:
       annotations:

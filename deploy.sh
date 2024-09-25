@@ -27,6 +27,9 @@ oc apply -f role-binding.yaml -n $NAMESPACE
 # Create Secrets
 oc apply -f secret.yaml -n $NAMESPACE
 
+# Create ConfigMaps
+oc apply -f noobaa-ca-config-map.yaml -n $NAMESPACE
+
 # Deploy Stolon Keeper
 oc apply -f stolon-keeper_new.yaml -n $NAMESPACE
 oc apply -f stolon-keeper-service.yaml -n $NAMESPACE
