@@ -64,6 +64,13 @@ spec:
         ports:
         - containerPort: 5432
         - containerPort: 8080
+        resources:
+          requests:
+            memory: "16Gi"
+            cpu: "8"
+          limits:
+            memory: "20Gi"
+            cpu: "10"
         volumeMounts:
         - name: noobaa-ca
           mountPath: /usr/local/share/ca-certificates/

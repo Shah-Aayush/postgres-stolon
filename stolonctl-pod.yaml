@@ -21,25 +21,3 @@ spec:
       seccompProfile:
         type: RuntimeDefault
   restartPolicy: Never
-
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: stolonctl-status
-#   namespace: postgres-stolon
-# spec:
-#   serviceAccountName: stolon-sa
-#   containers:
-#   - name: stolonctl
-#     image: aayushtheapple/postgres-updated:stolon-postgres-v1.4
-#     imagePullPolicy: Always
-#     command: ["/usr/local/bin/stolonctl"]
-#     args: ["--cluster-name=kube-stolon", "--store-backend=kubernetes", "--kube-resource-kind=configmap", "--kube-namespace=postgres-stolon", "status"]
-#     securityContext:
-#       allowPrivilegeEscalation: false
-#       capabilities:
-#         drop:
-#         - "ALL"
-#       seccompProfile:
-#         type: RuntimeDefault
-#   restartPolicy: Never

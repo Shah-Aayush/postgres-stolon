@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Mention <namespace>
 NAMESPACE="postgres-stolon"
 
 # Delete the namespace if it exists
