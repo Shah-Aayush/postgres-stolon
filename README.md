@@ -327,3 +327,14 @@ SHOW effective_cache_size;
 ```
 
 By following these steps, you should be able to update PostgreSQL parameters using the Stolon operator and ensure that the changes take effect.
+
+
+## Image building
+
+- go to stolon repo
+- update the dockerfile there at `examples/kubernetes/image/docker`
+   - copy contents there from dockerfiles/`custom-v1.2.dockerfile` if not sure
+- build image : do it from stolon repo root path.
+   - `docker build --build-arg PGVERSION=15 -t postgres-stolon:v1.7 -f examples/kubernetes/image/docker/Dockerfile .`
+- stolon postgres image :
+   `docker-na-public.artifactory.swg-devops.com/sec-guardium-next-gen-docker-local/postgres-stolon:v1.7`

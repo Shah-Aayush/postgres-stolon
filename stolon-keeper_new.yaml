@@ -57,7 +57,10 @@ spec:
           value: /etc/secrets/stolon/password
         - name: STKEEPER_METRICS_LISTEN_ADDRESS
           value: 0.0.0.0:8080
-        image: aayushtheapple/postgres-updated:stolon-postgres-v1.6
+        image: docker-na-public.artifactory.swg-devops.com/sec-guardium-next-gen-docker-local/postgres-stolon:v1.7
+        # image: aayushtheapple/postgres-updated:stolon-postgres-v1.7
+        # imagePullSecrets:
+        #   - name: my-docker-secret
         # image: sorintlab/stolon:master-pg15
         imagePullPolicy: Always
         name: stolon-keeper
@@ -66,11 +69,11 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: "16Gi"
-            cpu: "8"
+            memory: "8Gi"
+            cpu: "4"
           limits:
-            memory: "20Gi"
-            cpu: "10"
+            memory: "10Gi"
+            cpu: "5"
         volumeMounts:
         - name: noobaa-ca
           mountPath: /usr/local/share/ca-certificates/
@@ -98,4 +101,16 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 2Ti
+          storage: 1Ti
+
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-docker-secret
+  namespace: postgres-stolon-ingestion
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJhYXl1c2h0aGVhcHBsZSIsInBhc3N3b3JkIjoiZGNrcl9wYXRfTUlBcTVRSzBjaEgwVFhRNk1STXgxbkVMWDQwIiwiZW1haWwiOiJzaGFoYWF5dXNoMzQ5QGdtYWlsLmNvbSJ9fX0=
+

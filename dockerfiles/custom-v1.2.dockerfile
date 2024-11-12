@@ -65,13 +65,10 @@ RUN echo "CREATE EXTENSION IF NOT EXISTS plpython3u;" >> /docker-entrypoint-init
     echo "CREATE EXTENSION IF NOT EXISTS pg_cron;" >> /docker-entrypoint-initdb.d/init_extensions.sql
 
 # Modify postgresql.conf to include shared_preload_libraries and cron.database_name
-RUN echo "shared_preload_libraries = 'pg_stat_statements,pg_cron'" >> /stolon-data/postgres/postgresql.conf && \
-    echo "cron.database_name = 'postgres'" >> /stolon-data/postgres/postgresql.conf
+RUN echo "shared_preload_libraries = 'pg_stat_statements,pg_cron'" >> /usr/share/postgresql/postgresql.conf.sample && \
+    echo "cron.database_name = 'postgres'" >> /usr/share/postgresql/postgresql.conf.sample
 
-
-# Clean up
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN useradd -ms /bin/bash stolon
 
 EXPOSE 5432
 

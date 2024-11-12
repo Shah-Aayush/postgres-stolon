@@ -8,25 +8,26 @@ spec:
   containers:
   - name: stolonctl
     # image: sorintlab/stolon:master-pg15
-    image: aayushtheapple/postgres-updated:stolon-postgres-v1.5
+    image: aayushtheapple/postgres-updated:stolon-postgres-v1.7
     imagePullPolicy: Always
     command: ["/usr/local/bin/stolonctl"]
     args: [
       "--cluster-name=kube-stolon",
       "--store-backend=kubernetes",
       "--kube-resource-kind=configmap",
-      "--kube-namespace=postgres-stolon",
+      "--kube-namespace=postgres-stolon-ingestion",
       "update",
       "--patch",
       '{
         "pgParameters": {
-          "temp_buffers": "2GB",
-          "shared_buffers": "20GB",
+          "temp_buffers": "4GB",
+          "shared_buffers": "10GB",
           "wal_buffers": "200000",
-          "work_mem": "2GB",
-          "max_connections": "300",
+          "work_mem": "6147483kB",
+          "max_connections": "1000",
           "max_parallel_workers_per_gather": "6",
-          "effective_cache_size": "2GB"
+          "effective_cache_size": "4GB",
+          "track_commit_timestamp": "on"
         }
       }'
     ]
@@ -38,3 +39,16 @@ spec:
       seccompProfile:
         type: RuntimeDefault
   restartPolicy: Never
+  imagePullSecrets:
+    - name: my-docker-secret
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-docker-secret
+  namespace: postgres-stolon-ingestion
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJhYXl1c2h0aGVhcHBsZSIsInBhc3N3b3JkIjoiZGNrcl9wYXRfc2FQUloxQ1hXLVYxTFBXbUREaXJEbXd4Y1hzIiwiZW1haWwiOiJzaGFoYWF5dXNoMzQ5QGdtYWlsLmNvbSJ9fX0=
+
